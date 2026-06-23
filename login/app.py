@@ -119,6 +119,9 @@ def resolve_oauth_user(provider, provider_id, email, email_verified):
     if not email or not email_verified:
         return None, "email_unverified"
 
+    # Lowercase the email
+    email = email.lower()
+
     # Match the OAuth identity first so a provider only logs into its own account
     user = User.query.filter_by(provider=provider, provider_id=provider_id).first()
     if user:
@@ -274,7 +277,7 @@ def login():
     they were trying to access.
     """
     data = request.get_json()
-    email, password = data["email"], data["password"]
+    email, password = data["email"].lower(), data["password"]
 
     user = User.query.filter_by(email=email).first()
 
@@ -358,7 +361,7 @@ def create_account():
     then redirect them to the home page.
     """
     data = request.get_json()
-    email: str = data["email"]
+    email: str = data["email"].lower()
     username: str = data["username"]
     password: str = data["password"]
     confirm_password: str = data["confirmPassword"]
@@ -786,7 +789,7 @@ def verify_password_reset_token(token: str):
 @user_authentication.route("/reset_password", methods=["post"])
 def reset_password():
     data = request.get_json()
-    email, token = data["email"], data["token"]
+    email, token = data["email"].lower(), data["token"]
     password, confirm_password = data["password"], data["confirmPassword"]
 
     try:
@@ -896,7 +899,7 @@ def request_password_reset():
       the email has been sent.
     """
     data = request.get_json()
-    email = data["email"]
+    email = data["email"].lower()
 
     try:
         validate_email(email)

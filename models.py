@@ -28,9 +28,17 @@ class User(db.Model, UserMixin):
     """
 
     __tablename__ = "users"
+    __table_args__ = (
+        # Case-insensitive uniqueness -- matches the uq_users_email_lower
+        # functional UNIQUE index from migration 0007. The app lowercases every
+        # email, so this is the authoritative guarantee (replaces UNIQUE (email)).
+        # NB: use text("lower(email)") so the expression targets the email COLUMN.
+        # func.lower("email") would index the constant string 'email' (one row max).
+        db.Index("uq_users_email_lower", db.text("lower(email)"), unique=True),
+    )
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email = db.Column(db.String(254), nullable=False, unique=True)
+    email = db.Column(db.String(254), nullable=False)
     username = db.Column(db.String(20), unique=True)
     password_hash = db.Column(db.Text, nullable=True)
     provider = db.Column(db.Text, nullable=True)
