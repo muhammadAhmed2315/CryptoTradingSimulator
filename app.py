@@ -25,6 +25,7 @@ class DecimalJSONProvider(DefaultJSONProvider):
             return float(o)
         return DefaultJSONProvider.default(o)
 
+
 from constants import (
     JWT_ACCESS_TOKEN_EXPIRES_HOURS,
     JWT_REFRESH_TOKEN_EXPIRES_DAYS,

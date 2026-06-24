@@ -24,7 +24,7 @@ export default function CoinSearchResult({
 
   return (
     <div
-      className="flex justify-between rounded-md px-2 py-0.5 cursor-pointer hover:bg-muted bg-background gap-2"
+      className="flex justify-between gap-2 rounded-md border border-border bg-background px-2 py-0.5 cursor-pointer transition-colors hover:border-[#71717a] hover:bg-muted"
       onClick={() => onDropdownItemClick(coin)}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

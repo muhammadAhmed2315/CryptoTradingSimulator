@@ -84,7 +84,7 @@ export default function CoinSearchBar({
       </Field>
 
       {/* ===== RESULTS DROPDOWN ===== */}
-      <div className="absolute top-full left-0 w-full z-10 bg-background overflow-hidden rounded-md">
+      <div className="absolute top-9.5 left-0 w-full z-10 bg-background overflow-hidden rounded-md">
         {showDropdown &&
           matchingCoins
             .slice(0, 10)

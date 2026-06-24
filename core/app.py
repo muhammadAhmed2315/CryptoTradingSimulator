@@ -66,6 +66,9 @@ def get_coins_list_cached():
 # Verify user has a username
 @core.before_request
 def require_username():
+    if request.method == "OPTIONS":
+        return None
+
     verify_jwt_in_request()
     user = db.session.get(User, get_jwt_identity())
     if user is None or not user.username:
